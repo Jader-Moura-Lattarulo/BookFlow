@@ -42,6 +42,22 @@ function findUserByEmailRepository(email) {
     });
 }
 
+function findUserByIdRepository(id) {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT id, username, email, avatar FROM users WHERE id = ?`,
+            [id],
+            function (err, row) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            }
+        );
+    });
+}
+
 function findUserByUserNameRepository(username) {
     return new Promise((resolve, reject) => {
         db.get(
@@ -58,8 +74,61 @@ function findUserByUserNameRepository(username) {
     });
 }
 
+function findAllUsersRepository() {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT id, username, email, avatar FROM users`,
+            [],
+            function (err, rows) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            }
+        );
+    });
+}
+
+function updateUserRepository(id, user) {
+    return new Promise((resolve, reject) => {
+        const { username, email, password, avatar } = user;
+        db.run(
+            `UPDATE users SET username = ?, email = ?, password = ?, avatar = ? WHERE id = ?`,
+            [username, email, password, avatar, id],
+            function (err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve( {id, ...user});
+                }
+            }
+        );
+    });
+}
+
+async function deleteUserRepository(id) {
+    return new Promise((resolve, reject) => {
+        db.run(
+            `DELETE FROM users WHERE id = ?`,
+            [id],
+            function (err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve( {message: "User deleted successfully!", id});
+                }
+            }
+        );
+    });
+}
+
 export default {
     createUserRepository,
     findUserByEmailRepository,
-    findUserByUserNameRepository
+    findUserByUserNameRepository,
+    findUserByIdRepository,
+    findAllUsersRepository,
+    updateUserRepository,
+    deleteUserRepository
 };

@@ -19,4 +19,8 @@ const userSchema = z.object({
     avatar: z.string().url({message: "Invalid avatar URL"}).optional()
 })
 
-export { userSchema };
+const userIdSchema = z.object({
+    id: z.number().int().positive({message: "User ID must be a positive integer"})
+});
+
+export { userSchema, userIdSchema };
