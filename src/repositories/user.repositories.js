@@ -15,11 +15,11 @@ function createUserRepository(newUser) {
             `INSERT INTO users (username, email, password, avatar) 
              VALUES (?, ?, ?, ?)`,
              [username, email, password, avatar],
-             (err) => {
+             function (err) {
                  if (err) {
                      reject(err);
                  } else {
-                     resolve({ message: "User created successfully", user: newUser});
+                     resolve({id: this.lastID, ...newUser});
                  } 
             }
         );
