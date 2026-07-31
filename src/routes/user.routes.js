@@ -10,7 +10,7 @@ router.post("/users", validate(userSchema), userController.createUserController)
 router.get("/users", userController.findAllUsersController);
 router.get("/users/:id", validateUserId, userController.findUserByIdController);
 
-router.put("/users/:id", validateUserId, validate(userSchema), userController.updateUserController);
+router.patch("/users/:id", validateUserId, userController.updateUserController);
 
 router.delete("/users/:id", validateUserId, userController.deleteUserController);
 
