@@ -9,12 +9,11 @@ const router = Router();
 router.post("/users", validate(userSchema), userController.createUserController);
 router.post("/users/login", userController.loginController);
 
-router.use(authMiddleware);
-router.get("/users", userController.findAllUsersController);
-router.get("/users/:id", validateUserId, userController.findUserByIdController);
+router.get("/users", authMiddleware, userController.findAllUsersController);
+router.get("/users/:id", authMiddleware, validateUserId, userController.findUserByIdController);
 
-router.patch("/users/:id", validateUserId, userController.updateUserController);
+router.patch("/users/:id", authMiddleware, validateUserId, userController.updateUserController);
 
-router.delete("/users/:id", validateUserId, userController.deleteUserController);
+router.delete("/users/:id", authMiddleware, validateUserId, userController.deleteUserController);
 
 export default router;

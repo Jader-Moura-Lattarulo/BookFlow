@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import userService from "../service/user.service.js";
 
 export function authMiddleware(req, res, next) {
+    console.log('Auth middleware called',req.method, req.originalUrl);
     const tokenHeader = req.headers.authorization;
     
     if (!tokenHeader) {
