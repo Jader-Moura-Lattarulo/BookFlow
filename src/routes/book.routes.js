@@ -10,6 +10,7 @@ router.get('/books', bookController.findAllBooksController);
 
 router.post('/books', authMiddleware, validate(bookSchema), bookController.createBookController);
 
+router.get("/books/search", bookController.searchBooksController);
 router.get("/books/:id", validateBookId, bookController.findBookByIdController);
 router.patch("/books/:id", authMiddleware, validateBookId, bookController.updateBookController);
 router.delete("/books/:id", authMiddleware, validateBookId, bookController.deleteBookController);
