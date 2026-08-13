@@ -6,9 +6,9 @@ import { authMiddleware } from '../middlewares/auth.middleware.js'
 
 const router = Router()
 
-router.post("/loans", authMiddleware, validate(loanSchema), loanController.createLoanController);
-router.get("/loans", authMiddleware, loanController.findAllLoansController);
-router.get("/loans/:id", validateLoanId, loanController.findLoanByIdController);
-router.delete("/loans/:id", authMiddleware, validateLoanId, loanController.deleteLoanController);
+router.post("/", authMiddleware, validate(loanSchema), loanController.createLoanController);
+router.get("/", authMiddleware, loanController.findAllLoansController);
+router.get("/:id", validateLoanId, loanController.findLoanByIdController);
+router.delete("/:id", authMiddleware, validateLoanId, loanController.deleteLoanController);
 
 export default router
